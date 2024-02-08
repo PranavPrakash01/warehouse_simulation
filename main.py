@@ -10,6 +10,8 @@ from items import Item
 from components.warehouse_layout import warehouse_layout
 from simulation_logic import Simulation
 import pygame
+import sys
+pygame.init()
 
 def main():
     # Initialize components
@@ -82,6 +84,11 @@ def main():
     warehouse_layout_data[outlet2.row][outlet2.column] = "O"
     warehouse_layout_data[outlet3.row][outlet3.column] = "O"
 
+    # Set up a custom event to pass items to inlets
+    INLET_REC_EVENT = pygame.USEREVENT
+    pygame.time.set_timer(INLET_REC_EVENT, 500)
+
+    clock = pygame.time.Clock()
     # Main simulation loop
     running = True
     while running:
@@ -92,14 +99,15 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    running = False
+                pygame.quit()
+                sys.exit()
+            elif event.type == INLET_REC_EVENT:
+                simulation.pass_items_inlet()
+            
+            dashboard.control_panel.handle_events(event)
 
         # You can add any additional logic here based on GUI events
-
-        # Display event log
-        dashboard.display_event_log(event_log)
+        clock.tick(60)
 
     pygame.quit()
 

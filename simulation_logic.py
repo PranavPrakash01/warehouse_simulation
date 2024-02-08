@@ -2,7 +2,7 @@
 from ui.event_log import EventLog
 import csv
 import random
-import pygame
+import pygame.time
 
 class Simulation:
     def __init__(self, inlets):
@@ -40,14 +40,21 @@ class Simulation:
         # Trigger the function to read and convert the CSV file
         self.read_and_convert_csv()
 
+    def pass_items_inlet(self):
         # Check if there are items to distribute
         if self.input_items:
-            for serial_id, item_data in self.input_items.items():
-                # Choose a random inlet
-                random_inlet = random.choice(self.inlets)
+            # Get the first item in the input_items dictionary
+            serial_id, item_data = next(iter(self.input_items.items()))
 
-                random_inlet.receive_item(item_data, self.event_log)
-            
+            # Choose a random inlet
+            random_inlet = random.choice(self.inlets)
+
+            # Receive the first item in the random inlet
+            random_inlet.receive_item(item_data, self.event_log)
+
+            # Remove the processed item from the input_items dictionary
+            del self.input_items[serial_id]
         else:
+            
             log_entry = "No items to distribute."
             self.event_log.add_entry(log_entry)

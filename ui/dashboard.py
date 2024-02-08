@@ -1,15 +1,12 @@
 # ui/dashboard.py
 
 import pygame
-import sys
 from ui.display import Display
 from ui.control_panel import ControlPanel
 
 class Dashboard:
     def __init__(self, warehouse_layout, inlets, outlets, sorting_areas, storage_areas, conveyors, simulation):
-        pygame.init()
-        self.clock = pygame.time.Clock()
-
+        
         self.warehouse_layout = warehouse_layout
         self.cell_size = 20
         self.padding = 20
@@ -42,21 +39,12 @@ class Dashboard:
         # Initialize control panel
         self.control_panel = ControlPanel(self.screen, self.control_panel_frame, simulation)
 
-    def handle_events(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            self.control_panel.handle_events(event)
-
     def run(self):
-        while True:
-            self.handle_events()
 
-            self.draw_dashboard_layout()
+        self.draw_dashboard_layout()
 
-            pygame.display.flip()
-            self.clock.tick(60)
+        pygame.display.flip()
+            
 
     def draw_dashboard_layout(self):
         pygame.draw.rect(self.screen, (25, 25, 25), self.main_frame)  # Draw main frame
