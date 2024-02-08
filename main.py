@@ -31,17 +31,29 @@ def main():
     sorting_areas = [big_sorting_area]
 
     #create big storage areas
-    storage_area1 = StorageArea(name="StorageArea1", start_location=(5, 10), item_destination="A", area_type="big")
-    storage_area2 = StorageArea(name="StorageArea2", start_location=(5, 12), item_destination="B", area_type="big")
-    storage_area3 = StorageArea(name="StorageArea3", start_location=(5, 14), item_destination="C", area_type="big")
-    storage_area4 = StorageArea(name="StorageArea4", start_location=(5, 16), item_destination="D", area_type="big")
-    storage_area5 = StorageArea(name="StorageArea5", start_location=(7, 10), item_destination="E", area_type="big")
-    storage_area6 = StorageArea(name="StorageArea6", start_location=(7, 12), item_destination="F", area_type="big")
-    storage_area7 = StorageArea(name="StorageArea7", start_location=(7, 14), item_destination="G", area_type="big")
-    storage_area8 = StorageArea(name="StorageArea8", start_location=(7, 16), item_destination="H", area_type="big")
+    storage_area1 = StorageArea(name="StorageArea1", start_location=(4, 10), item_destination="A", area_type="big")
+    storage_area2 = StorageArea(name="StorageArea2", start_location=(4, 12), item_destination="B", area_type="big")
+    storage_area3 = StorageArea(name="StorageArea3", start_location=(4, 14), item_destination="C", area_type="big")
+    storage_area4 = StorageArea(name="StorageArea4", start_location=(4, 16), item_destination="D", area_type="big")
+    storage_area5 = StorageArea(name="StorageArea5", start_location=(6, 10), item_destination="E", area_type="big")
+    storage_area6 = StorageArea(name="StorageArea6", start_location=(6, 12), item_destination="F", area_type="big")
+    storage_area7 = StorageArea(name="StorageArea7", start_location=(6, 14), item_destination="G", area_type="big")
+    storage_area8 = StorageArea(name="StorageArea8", start_location=(6, 16), item_destination="H", area_type="big")
+
+    storage_area9 = StorageArea(name="StorageArea9", start_location=(15, 10), item_destination="I", area_type="big")
+    storage_area10 = StorageArea(name="StorageArea10", start_location=(15, 12), item_destination="J", area_type="big")
+    storage_area11 = StorageArea(name="StorageArea11", start_location=(15, 14), item_destination="K", area_type="big")
+    storage_area12 = StorageArea(name="StorageArea12", start_location=(15, 16), item_destination="L", area_type="big")
+    storage_area13 = StorageArea(name="StorageArea13", start_location=(17, 10), item_destination="M", area_type="big")
+    storage_area14 = StorageArea(name="StorageArea14", start_location=(17, 12), item_destination="N", area_type="big")
+    storage_area15 = StorageArea(name="StorageArea15", start_location=(17, 14), item_destination="O", area_type="big")
+    storage_area16 = StorageArea(name="StorageArea16", start_location=(17, 16), item_destination="P", area_type="big")
 
     # Create a list of Sortign areas
-    storage_areas = [storage_area1, storage_area2, storage_area3, storage_area4, storage_area5, storage_area6, storage_area7, storage_area8]
+    storage_areas = [
+        storage_area1, storage_area2, storage_area3, storage_area4, storage_area5, storage_area6, storage_area7, storage_area8,
+        storage_area9, storage_area10, storage_area11, storage_area12, storage_area13, storage_area14, storage_area15, storage_area16
+        ]
 
     event_log = EventLog()
     warehouse_layout_data = warehouse_layout

@@ -27,10 +27,32 @@ class StorageArea:
                 row, col = cell
                 warehouse_layout[row][col] = self.name
 
+
     def draw_storage_area(self, screen, cell_size, start_x, start_y):
+        # Draw the cells
         for cell in self.cells:
             row, col = cell
             pygame.draw.rect(screen, self.color, (start_x + col * cell_size, start_y + row * cell_size, cell_size, cell_size))
+
+        # Draw the white border around the 2x2 square
+        square_size = 2 * cell_size  # Size of the 2x2 square
+        border_thickness = 1
+
+        # Calculate starting positions for the borders
+        border_start_x = start_x + self.cells[0][1] * cell_size
+        border_start_y = start_y + self.cells[0][0] * cell_size
+
+        # Top border
+        pygame.draw.rect(screen, (255, 255, 255), (border_start_x, border_start_y, square_size, border_thickness))
+
+        # Bottom border
+        pygame.draw.rect(screen, (255, 255, 255), (border_start_x, border_start_y + square_size - border_thickness, square_size, border_thickness))
+
+        # Left border
+        pygame.draw.rect(screen, (255, 255, 255), (border_start_x, border_start_y, border_thickness, square_size))
+
+        # Right border
+        pygame.draw.rect(screen, (255, 255, 255), (border_start_x + square_size - border_thickness, border_start_y, border_thickness, square_size))
 
     def store_item(self, item):
         if len(self.storage_list) < self.max_capacity:
