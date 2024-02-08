@@ -12,26 +12,32 @@ import pygame
 
 def main():
     # Initialize components
-
-    # Inlets
     inlet1 = Inlet(name="Inlet1", row=7, column=1)
     inlet2 = Inlet(name="Inlet2", row=10, column=1)
     inlet3 = Inlet(name="Inlet3", row=13, column=1)
-    inlets = [inlet1, inlet2, inlet3]
+    
+    outlet1 = Outlet(name="Outlet1", row=23, column=14)
+    outlet2 = Outlet(name="Outlet2", row=23, column=17)
+    outlet3 = Outlet(name="Outlet3", row=23, column=20)
 
-    outlet1 = Outlet(name="Outlet1")
     conveyor = Conveyor(name="Conveyor1")
     sorting_area = SortingArea(name="SortingArea1")
     storage_area = StorageArea(name="StorageArea1", max_capacity=5)
     event_log = EventLog()
     warehouse_layout_data = warehouse_layout
-    
-    dashboard = Dashboard(warehouse_layout_data, inlets)  # Pass the inlets to the Dashboard
+    inlets = [inlet1, inlet2, inlet3]
+    outlets = [outlet1, outlet2, outlet3]
+    dashboard = Dashboard(warehouse_layout_data, inlets, outlets)  # Pass the inlets and outlets to the Dashboard
 
     # Place Inlets in the layout
-    warehouse_layout_data[inlet1.row][inlet1.column] = "I"  # Inlet 1
-    warehouse_layout_data[inlet2.row][inlet2.column] = "I"  # Inlet 2
-    warehouse_layout_data[inlet3.row][inlet3.column] = "I"  # Inlet 3
+    warehouse_layout_data[inlet1.row][inlet1.column] = "I"
+    warehouse_layout_data[inlet2.row][inlet2.column] = "I"
+    warehouse_layout_data[inlet3.row][inlet3.column] = "I"
+
+    # Place Outlets in the layout
+    warehouse_layout_data[outlet1.row][outlet1.column] = "O"
+    warehouse_layout_data[outlet2.row][outlet2.column] = "O"
+    warehouse_layout_data[outlet3.row][outlet3.column] = "O"
 
     # Main simulation loop
     running = True
