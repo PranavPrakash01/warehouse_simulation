@@ -4,7 +4,7 @@ import pygame
 from ui.tooltip import draw_tooltip
 
 class Display:
-    def __init__(self, screen, warehouse_layout, cell_size, display_frame, inlets, outlets, sorting_areas, storage_areas):
+    def __init__(self, screen, warehouse_layout, cell_size, display_frame, inlets, outlets, sorting_areas, storage_areas, conveyors):
         self.screen = screen
         self.warehouse_layout = warehouse_layout
         self.cell_size = cell_size
@@ -13,6 +13,7 @@ class Display:
         self.outlets = outlets
         self.sorting_areas = sorting_areas
         self.storage_areas = storage_areas
+        self.conveyors = conveyors
 
     def draw_warehouse_layout(self):
         # Calculate the starting position to center the layout
@@ -45,9 +46,13 @@ class Display:
         for storage_area in self.storage_areas:
             storage_area.draw_storage_area(self.screen, self.cell_size, start_x, start_y)
 
+        # Draw conveyors
+        for conveyor in self.conveyors:
+            conveyor.draw_conveyor(self.screen, self.cell_size, start_x, start_y)
+
         # Draw tooltips for all components
         self.draw_tooltips(start_x, start_y)
 
     def draw_tooltips(self, start_x, start_y):
-        components = self.inlets + self.outlets + self.sorting_areas + self.storage_areas
+        components = self.inlets + self.outlets + self.sorting_areas + self.storage_areas + self.conveyors
         draw_tooltip(self.screen, components, self.cell_size, start_x, start_y)

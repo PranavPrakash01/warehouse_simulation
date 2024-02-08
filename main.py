@@ -17,12 +17,15 @@ def main():
     inlet3 = Inlet(name="Inlet3", row=13, column=1)
     inlets = [inlet1, inlet2, inlet3]
     
-    outlet1 = Outlet(name="Outlet1", row=23, column=14)
-    outlet2 = Outlet(name="Outlet2", row=23, column=17)
-    outlet3 = Outlet(name="Outlet3", row=23, column=20)
+    outlet1 = Outlet(name="Outlet1", row=23, column=16)
+    outlet2 = Outlet(name="Outlet2", row=23, column=19)
+    outlet3 = Outlet(name="Outlet3", row=23, column=22)
     outlets = [outlet1, outlet2, outlet3]
 
-    conveyor = Conveyor(name="Conveyor1")
+    conveyor1 = Conveyor(name="Conveyor1", start_location=(7, 2))
+    conveyor2 = Conveyor(name="Conveyor2", start_location=(10, 2))
+    conveyor3 = Conveyor(name="Conveyor3", start_location=(13, 2))
+    conveyors = [conveyor1, conveyor2, conveyor3]
 
     # Create a big sorting area
     big_sorting_area = SortingArea(name="BigSortingArea", start_location=(10, 15), area_type="big")
@@ -58,7 +61,7 @@ def main():
     event_log = EventLog()
     warehouse_layout_data = warehouse_layout
 
-    dashboard = Dashboard(warehouse_layout_data, inlets, outlets, sorting_areas, storage_areas)  # Pass the inlets, outlets, sorting areas, and storage areas to the Dashboard
+    dashboard = Dashboard(warehouse_layout_data, inlets, outlets, sorting_areas, storage_areas, conveyors)  # Pass the inlets, outlets, sorting areas, and storage areas to the Dashboard
 
     # Place Inlets in the layout
     warehouse_layout_data[inlet1.row][inlet1.column] = "I"

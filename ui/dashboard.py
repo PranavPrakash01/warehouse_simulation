@@ -6,7 +6,7 @@ from ui.display import Display
 from ui.control_panel import ControlPanel
 
 class Dashboard:
-    def __init__(self, warehouse_layout, inlets, outlets, sorting_areas, storage_areas):
+    def __init__(self, warehouse_layout, inlets, outlets, sorting_areas, storage_areas, conveyors):
         pygame.init()
         self.clock = pygame.time.Clock()
 
@@ -26,7 +26,7 @@ class Dashboard:
 
         # Initialize display frame at the top of the main frame
         self.display_frame = pygame.Rect(self.padding, self.padding, self.screen_size[0] - 2 * self.padding, self.screen_size[1] - 2 * self.padding)
-        self.display = Display(self.screen, self.warehouse_layout, self.cell_size, self.display_frame, inlets, outlets, sorting_areas, storage_areas)
+        self.display = Display(self.screen, self.warehouse_layout, self.cell_size, self.display_frame, inlets, outlets, sorting_areas, storage_areas, conveyors)
 
         # Padding between display frame and control panel frame
         padding_between_frames = 20
