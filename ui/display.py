@@ -1,18 +1,18 @@
 # ui/display.py
 
 import pygame
+from ui.tooltip import draw_tooltip
 
 class Display:
-    def __init__(self, screen, warehouse_layout, cell_size, display_frame, inlets, outlets, sorting_areas):
+    def __init__(self, screen, warehouse_layout, cell_size, display_frame, inlets, outlets, sorting_areas, storage_areas):
         self.screen = screen
         self.warehouse_layout = warehouse_layout
         self.cell_size = cell_size
-        self.display_frame = display_frame  # Pass the display frame to the Display class
-        self.inlets = inlets  # Pass the inlets to the Display class
-        self.outlets = outlets  # Pass the outlets to the Display class
-        self.sorting_areas = sorting_areas  # Pass the sorting areas to the Display class
-
-        self.font = pygame.font.Font(None, 24) 
+        self.display_frame = display_frame
+        self.inlets = inlets
+        self.outlets = outlets
+        self.sorting_areas = sorting_areas
+        self.storage_areas = storage_areas
 
     def draw_warehouse_layout(self):
         # Calculate the starting position to center the layout
@@ -32,34 +32,22 @@ class Display:
         # Draw inlets
         for inlet in self.inlets:
             inlet.draw_inlet(self.screen, self.cell_size, start_x, start_y)
-            self.draw_tooltip(inlet, start_x, start_y)
 
         # Draw outlets
         for outlet in self.outlets:
             outlet.draw_outlet(self.screen, self.cell_size, start_x, start_y)
-            self.draw_tooltip(outlet, start_x, start_y)
 
         # Draw Sorting areas
         for sorting_area in self.sorting_areas:
             sorting_area.draw_sorting_area(self.screen, self.cell_size, start_x, start_y)
-            self.draw_tooltip(sorting_area, start_x, start_y)
 
+        # Draw Storage areas
+        for storage_area in self.storage_areas:
+            storage_area.draw_storage_area(self.screen, self.cell_size, start_x, start_y)
 
+        # Draw tooltips for all components
+        self.draw_tooltips(start_x, start_y)
 
-    def draw_tooltip(self, component, start_x, start_y):
-        mouse_x, mouse_y = pygame.mouse.get_pos()
-
-        # Determine the component_rect based on the existence of 'cells' attribute
-        if hasattr(component, 'cells'):
-            component_rects = [pygame.Rect(start_x + col * self.cell_size, start_y + row * self.cell_size, self.cell_size, self.cell_size) for row, col in component.cells]
-        else:
-            component_rect = pygame.Rect(start_x + component.column * self.cell_size, start_y + component.row * self.cell_size, self.cell_size, self.cell_size)
-            component_rects = [component_rect]
-
-        # Check collision for each component_rect
-        for component_rect in component_rects:
-            if component_rect.collidepoint(mouse_x, mouse_y):
-                tooltip_text = self.font.render(component.get_name(), True, (255, 255, 255))
-                tooltip_rect = tooltip_text.get_rect(center=(mouse_x, mouse_y - 20))
-                pygame.draw.rect(self.screen, (50, 50, 50), tooltip_rect)  # Tooltip background
-                self.screen.blit(tooltip_text, tooltip_rect)
+    def draw_tooltips(self, start_x, start_y):
+        components = self.inlets + self.outlets + self.sorting_areas + self.storage_areas
+        draw_tooltip(self.screen, components, self.cell_size, start_x, start_y)
