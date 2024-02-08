@@ -16,7 +16,7 @@ class Inlet:
 
     def draw_inlet(self, screen, cell_size, start_x, start_y):
         # Draw a green square for the inlet
-        pygame.draw.rect(screen, (0, 255, 0), (start_x + self.column * cell_size, start_y + self.row * cell_size, cell_size, cell_size))
+        pygame.draw.rect(screen, (139, 204, 137), (start_x + self.column * cell_size, start_y + self.row * cell_size, cell_size, cell_size))
 
 
 class Outlet:
@@ -30,4 +30,4 @@ class Outlet:
 
     def draw_outlet(self, screen, cell_size, start_x, start_y):
         # Draw a red square for the inlet
-        pygame.draw.rect(screen, (255, 0, 0), (start_x + self.column * cell_size, start_y + self.row * cell_size, cell_size, cell_size))
+        pygame.draw.rect(screen, (217, 122, 115), (start_x + self.column * cell_size, start_y + self.row * cell_size, cell_size, cell_size))
