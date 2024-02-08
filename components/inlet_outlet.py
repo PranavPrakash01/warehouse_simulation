@@ -8,6 +8,7 @@ class Inlet:
         self.name = name
         self.row = row
         self.column = column
+        self.conveyor = None 
         self.received_items = []
 
     def receive_item(self, item):

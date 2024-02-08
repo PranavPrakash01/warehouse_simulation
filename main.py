@@ -28,6 +28,11 @@ def main():
     conveyor3 = Conveyor(name="Conveyor3", start_location=(13, 2))
     conveyors = [conveyor1, conveyor2, conveyor3]
 
+    # Assign conveyors to inlets
+    inlet1.conveyor = conveyor1
+    inlet2.conveyor = conveyor2
+    inlet3.conveyor = conveyor3
+
     # Create a big sorting area
     big_sorting_area = SortingArea(name="BigSortingArea", start_location=(10, 15), area_type="big")
 
