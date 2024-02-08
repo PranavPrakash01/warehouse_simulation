@@ -3,13 +3,14 @@
 import pygame
 
 class Display:
-    def __init__(self, screen, warehouse_layout, cell_size, display_frame, inlets, outlets):
+    def __init__(self, screen, warehouse_layout, cell_size, display_frame, inlets, outlets, sorting_areas):
         self.screen = screen
         self.warehouse_layout = warehouse_layout
         self.cell_size = cell_size
         self.display_frame = display_frame  # Pass the display frame to the Display class
         self.inlets = inlets  # Pass the inlets to the Display class
         self.outlets = outlets  # Pass the outlets to the Display class
+        self.sorting_areas = sorting_areas  # Pass the sorting areas to the Display class
 
     def draw_warehouse_layout(self):
         # Calculate the starting position to center the layout
@@ -33,3 +34,7 @@ class Display:
         # Draw outlets
         for outlet in self.outlets:
             outlet.draw_outlet(self.screen, self.cell_size, start_x, start_y)
+
+        # Draw Sorting areas
+        for sorting_area in self.sorting_areas:
+            sorting_area.draw_sorting_area(self.screen, self.cell_size, start_x, start_y)

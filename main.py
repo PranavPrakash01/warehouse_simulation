@@ -21,13 +21,19 @@ def main():
     outlet3 = Outlet(name="Outlet3", row=23, column=20)
 
     conveyor = Conveyor(name="Conveyor1")
-    sorting_area = SortingArea(name="SortingArea1")
+
+    # Create a big sorting area
+    big_sorting_area = SortingArea(name="BigSortingArea", start_location=(10, 10), area_type="big")
+
+    # Create a list of sorting areas
+    sorting_areas = [big_sorting_area]
+
     storage_area = StorageArea(name="StorageArea1", max_capacity=5)
     event_log = EventLog()
     warehouse_layout_data = warehouse_layout
     inlets = [inlet1, inlet2, inlet3]
     outlets = [outlet1, outlet2, outlet3]
-    dashboard = Dashboard(warehouse_layout_data, inlets, outlets)  # Pass the inlets and outlets to the Dashboard
+    dashboard = Dashboard(warehouse_layout_data, inlets, outlets, sorting_areas)  # Pass the inlets, outlets, and sorting areas to the Dashboard
 
     # Place Inlets in the layout
     warehouse_layout_data[inlet1.row][inlet1.column] = "I"
