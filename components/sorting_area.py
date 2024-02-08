@@ -7,6 +7,7 @@ class SortingArea:
     def __init__(self, name, start_location, area_type="small"):
         self.name = name
         self.area_type = area_type
+        self.row, self.column = start_location
         self.sorted_items = []
 
         # Define attributes for big sorting area
@@ -32,4 +33,7 @@ class SortingArea:
         # For example, sorting by location
         self.sorted_items = sorted(items, key=lambda x: x.location)
         print(f"Items sorted in Sorting Area {self.name}: {self.sorted_items}")
+
+    def get_name(self):
+        return self.name
 
