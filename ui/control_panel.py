@@ -12,17 +12,17 @@ class ControlPanel:
         self.button_radius = 5  # Radius for rounded corners
 
         # Play button
-        self.play_button = pygame.Rect(control_panel_frame.left + 10, control_panel_frame.top + (control_panel_frame.height - self.button_height) // 2, self.button_width, self.button_height)
+        self.run_button = pygame.Rect(control_panel_frame.left + 10, control_panel_frame.top + (control_panel_frame.height - self.button_height) // 2, self.button_width, self.button_height)
 
         # Pause button
-        self.pause_button = pygame.Rect(self.play_button.right + 10, self.play_button.top, self.button_width, self.button_height)
+        self.pause_button = pygame.Rect(self.run_button.right + 10, self.run_button.top, self.button_width, self.button_height)
 
         # Stop button
-        self.stop_button = pygame.Rect(self.pause_button.right + 10, self.play_button.top, self.button_width, self.button_height)
+        self.stop_button = pygame.Rect(self.pause_button.right + 10, self.run_button.top, self.button_width, self.button_height)
 
         # Decrease the width of the event log box and add padding to the right
         padding_right = 10
-        self.event_log_box = pygame.Rect(self.stop_button.right + 10, self.play_button.top, control_panel_frame.width - (self.stop_button.right + 10) - padding_right, 50)
+        self.event_log_box = pygame.Rect(self.stop_button.right + 10, self.run_button.top, control_panel_frame.width - (self.stop_button.right + 10) - padding_right, 50)
 
         self.event_log_font = pygame.font.Font(None, 20)
         self.event_log = []
@@ -31,7 +31,7 @@ class ControlPanel:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
 
-            if self.play_button.collidepoint(mouse_pos):
+            if self.run_button.collidepoint(mouse_pos):
                 print("Play button clicked")
                 # Add your play button logic here
 
@@ -45,12 +45,12 @@ class ControlPanel:
 
     def draw_control_panel(self):
         # Draw buttons with rounded corners
-        pygame.draw.rect(self.screen, (95, 95, 95), self.play_button, border_radius=self.button_radius)
+        pygame.draw.rect(self.screen, (95, 95, 95), self.run_button, border_radius=self.button_radius)
         pygame.draw.rect(self.screen, (95, 95, 95), self.pause_button, border_radius=self.button_radius)
         pygame.draw.rect(self.screen, (95, 95, 95), self.stop_button, border_radius=self.button_radius)
 
         # Draw text on buttons
-        self.draw_text("Play", self.play_button)
+        self.draw_text("Run", self.run_button)
         self.draw_text("Pause", self.pause_button)
         self.draw_text("Stop", self.stop_button)
 
