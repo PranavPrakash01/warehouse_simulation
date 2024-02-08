@@ -1,9 +1,12 @@
 # simulation_logic.py
 from ui.event_log import EventLog
 import csv
+import random
+import pygame
 
 class Simulation:
-    def __init__(self):
+    def __init__(self, inlets):
+        self.inlets = inlets
         self.event_log = EventLog()
         self.input_items = {}
         self.running = False
@@ -36,3 +39,15 @@ class Simulation:
 
         # Trigger the function to read and convert the CSV file
         self.read_and_convert_csv()
+
+        # Check if there are items to distribute
+        if self.input_items:
+            for serial_id, item_data in self.input_items.items():
+                # Choose a random inlet
+                random_inlet = random.choice(self.inlets)
+
+                random_inlet.receive_item(item_data, self.event_log)
+            
+        else:
+            log_entry = "No items to distribute."
+            self.event_log.add_entry(log_entry)

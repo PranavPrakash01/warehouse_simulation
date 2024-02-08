@@ -68,7 +68,7 @@ def main():
     warehouse_layout_data = warehouse_layout
 
     # Create an instance of the Simulation class
-    simulation = Simulation() 
+    simulation = Simulation(inlets) 
 
     dashboard = Dashboard(warehouse_layout_data, inlets, outlets, sorting_areas, storage_areas, conveyors, simulation)
 

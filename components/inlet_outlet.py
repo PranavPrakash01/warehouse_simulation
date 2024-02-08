@@ -11,9 +11,10 @@ class Inlet:
         self.conveyor = None 
         self.received_items = []
 
-    def receive_item(self, item):
-        self.received_items.append(item)
-        print(f"Item received at Inlet {self.name}: {item}")
+    def receive_item(self, item_data, event_log):
+        self.received_items.append(item_data)
+        item_info = f"[{self.name}] : New Item Received - name: '{item_data['name']}', weight: {item_data['weight']}, location: '{item_data['location']}'"
+        event_log.add_entry(item_info)
 
     def draw_inlet(self, screen, cell_size, start_x, start_y):
         # Draw a green square for the inlet
