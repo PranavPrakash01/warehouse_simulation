@@ -25,7 +25,7 @@ def main():
     conveyor = Conveyor(name="Conveyor1")
 
     # Create a big sorting area
-    big_sorting_area = SortingArea(name="BigSortingArea", start_location=(10, 10), area_type="big")
+    big_sorting_area = SortingArea(name="BigSortingArea", start_location=(10, 15), area_type="big")
 
     # Create a list of sorting areas
     sorting_areas = [big_sorting_area]
