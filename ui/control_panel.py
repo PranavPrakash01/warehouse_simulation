@@ -4,12 +4,13 @@ import pygame
 import pygame.gfxdraw  # Import pygame.gfxdraw for drawing rounded rectangles
 
 class ControlPanel:
-    def __init__(self, screen, control_panel_frame):
+    def __init__(self, screen, control_panel_frame, simulation):
         self.screen = screen
         self.control_panel_frame = control_panel_frame
         self.button_width = 70
         self.button_height = 30
         self.button_radius = 5  # Radius for rounded corners
+        self.simulation = simulation
 
         # Play button
         self.run_button = pygame.Rect(control_panel_frame.left + 10, control_panel_frame.top + (control_panel_frame.height - self.button_height) // 2, self.button_width, self.button_height)
@@ -22,18 +23,17 @@ class ControlPanel:
 
         # Decrease the width of the event log box and add padding to the right
         padding_right = 10
-        self.event_log_box = pygame.Rect(self.stop_button.right + 10, self.run_button.top, control_panel_frame.width - (self.stop_button.right + 10) - padding_right, 50)
+        self.event_log_box = pygame.Rect(self.stop_button.right + 10, control_panel_frame.top+10 , control_panel_frame.width - (self.stop_button.right + 10) - padding_right, 80)
 
         self.event_log_font = pygame.font.Font(None, 20)
-        self.event_log = []
+        self.event_log = simulation.event_log 
 
     def handle_events(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
 
             if self.run_button.collidepoint(mouse_pos):
-                print("Play button clicked")
-                # Add your play button logic here
+                self.simulation.run()
 
             elif self.pause_button.collidepoint(mouse_pos):
                 print("Pause button clicked")
@@ -65,7 +65,4 @@ class ControlPanel:
         self.screen.blit(text_surface, text_rect)
 
     def draw_event_log(self):
-        for i, log_entry in enumerate(self.event_log):
-            text_surface = self.event_log_font.render(log_entry, True, (0, 0, 0))
-            text_rect = text_surface.get_rect(topleft=(self.event_log_box.left + 10, self.event_log_box.top + 10 + i * 30))
-            self.screen.blit(text_surface, text_rect)
+        self.event_log.draw_event_log(self.screen, self.event_log_box)

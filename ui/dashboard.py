@@ -6,7 +6,7 @@ from ui.display import Display
 from ui.control_panel import ControlPanel
 
 class Dashboard:
-    def __init__(self, warehouse_layout, inlets, outlets, sorting_areas, storage_areas, conveyors):
+    def __init__(self, warehouse_layout, inlets, outlets, sorting_areas, storage_areas, conveyors, simulation):
         pygame.init()
         self.clock = pygame.time.Clock()
 
@@ -40,7 +40,7 @@ class Dashboard:
         self.screen = pygame.display.set_mode(self.screen_size)
 
         # Initialize control panel
-        self.control_panel = ControlPanel(self.screen, self.control_panel_frame)
+        self.control_panel = ControlPanel(self.screen, self.control_panel_frame, simulation)
 
     def handle_events(self):
         for event in pygame.event.get():

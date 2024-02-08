@@ -8,6 +8,7 @@ from ui.dashboard import Dashboard
 from ui.event_log import EventLog
 from items import Item
 from components.warehouse_layout import warehouse_layout
+from simulation_logic import Simulation
 import pygame
 
 def main():
@@ -61,7 +62,10 @@ def main():
     event_log = EventLog()
     warehouse_layout_data = warehouse_layout
 
-    dashboard = Dashboard(warehouse_layout_data, inlets, outlets, sorting_areas, storage_areas, conveyors)  # Pass the inlets, outlets, sorting areas, and storage areas to the Dashboard
+    # Create an instance of the Simulation class
+    simulation = Simulation() 
+
+    dashboard = Dashboard(warehouse_layout_data, inlets, outlets, sorting_areas, storage_areas, conveyors, simulation)
 
     # Place Inlets in the layout
     warehouse_layout_data[inlet1.row][inlet1.column] = "I"
