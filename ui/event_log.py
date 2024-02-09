@@ -4,13 +4,17 @@ import pygame
 class EventLog:
     def __init__(self):
         self.log_entries = []
+        self.all_logs = []
         self.max_entries = 6  # Maximum number of entries to display in the event_log_box
         self.log_font = pygame.font.Font(None, 20)
 
     def add_entry(self, entry):
-        self.log_entries.insert(0, entry)  # Insert new entry at the beginning
+        self.log_entries.insert(0, entry)
+        self.all_logs.insert(0, entry)   # Insert new entry at the beginning
         if len(self.log_entries) > self.max_entries:
             self.log_entries.pop()  # Remove the last entry if exceeding the maximum
+        if len(self.all_logs) > 100:
+            self.log_entries.pop()
 
     def get_entries(self):
         return self.log_entries

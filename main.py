@@ -103,7 +103,6 @@ def main():
                 sys.exit()
             elif event.type == INLET_REC_EVENT:
                 if simulation.running:
-                    print("running...")
                     simulation.pass_items_inlet()
             
             dashboard.control_panel.handle_events(event)
