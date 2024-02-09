@@ -26,7 +26,7 @@ class SortingArea:
     def draw_sorting_area(self, screen, cell_size, start_x, start_y):
         for cell in self.cells:
             row, col = cell
-            pygame.draw.rect(screen, (62, 73, 199) , (start_x + col * cell_size, start_y + row * cell_size, cell_size, cell_size))
+            pygame.draw.rect(screen, (126, 155, 222) , (start_x + col * cell_size, start_y + row * cell_size, cell_size, cell_size))
         
     def sort_items(self, items):
         # Implement sorting logic here based on criteria

@@ -36,13 +36,14 @@ class Conveyor:
                 # Change color back to the original color
                 self.color_timer = 0
 
-    def transport_item(self, item_data, event_log):
-        self.items_on_conveyor.append(item_data)
+    def transport_item(self, item, event_log):
+        self.items_on_conveyor.append(item)
         
         # Change color to grey temporarily
         self.color_timer = pygame.time.get_ticks() + self.color_duration
 
-        item_info = f"[{self.name}] : Transporting Item - name: '{item_data['name']}', weight: {item_data['weight']}, location: '{item_data['location']}'"
+        item_info = f"[{self.name}]: Transporting Item - {item.info()}"
+        
         event_log.add_entry(item_info)
 
     def get_name(self):

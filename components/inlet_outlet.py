@@ -15,19 +15,20 @@ class Inlet:
         self.color_timer = 0
         self.color_duration = 250  # Time duration in milliseconds for the color change
 
-    def receive_item(self, item_data, event_log):
-        self.received_items.append(item_data)
+    def receive_item(self, item, event_log):
         
+        self.received_items.append(item)
+
         # Change color to green temporarily
         self.color = (0, 255, 0)
         self.color_timer = pygame.time.get_ticks() + self.color_duration
 
-        item_info = f"[{self.name}] : New Item Received - name: '{item_data['name']}', weight: {item_data['weight']}, location: '{item_data['location']}'"
+        item_info = f"[{self.name}]: New Item Received - {item.info()}"
         event_log.add_entry(item_info)
 
         # Check if the Inlet has a connected Conveyor
         if self.conveyor:
-            self.conveyor.transport_item(item_data, event_log)
+            self.conveyor.transport_item(item, event_log)
 
 
     def draw_inlet(self, screen, cell_size, start_x, start_y):
