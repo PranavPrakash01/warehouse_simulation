@@ -25,6 +25,11 @@ class Inlet:
         item_info = f"[{self.name}] : New Item Received - name: '{item_data['name']}', weight: {item_data['weight']}, location: '{item_data['location']}'"
         event_log.add_entry(item_info)
 
+        # Check if the Inlet has a connected Conveyor
+        if self.conveyor:
+            self.conveyor.transport_item(item_data, event_log)
+
+
     def draw_inlet(self, screen, cell_size, start_x, start_y):
         # Draw the inlet with the current color
         pygame.draw.rect(screen, self.color, (start_x + self.column * cell_size, start_y + self.row * cell_size, cell_size, cell_size))

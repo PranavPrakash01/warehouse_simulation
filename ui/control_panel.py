@@ -47,8 +47,8 @@ class ControlPanel:
                 self.event_log.add_entry(f"Simulation Stopped: Click Run to restart")
 
             elif self.show_logs_button.collidepoint(mouse_pos):
-                print(self.event_log.all_logs)
-                # Add your pause button logic here
+                for log in self.event_log.all_logs:
+                    print(log)
 
     def draw_control_panel(self):
         # Draw buttons with rounded corners

@@ -2,7 +2,6 @@
 from ui.event_log import EventLog
 import csv
 import random
-import pygame.time
 
 class Simulation:
     def __init__(self, inlets):
@@ -17,8 +16,9 @@ class Simulation:
                 csv_reader = csv.DictReader(file)
                 
                 # Print field names for debugging
-                print(f"CSV Field Names: {csv_reader.fieldnames}")
+                #print(f"CSV Field Names: {csv_reader.fieldnames}")
                 
+                length = 0
                 for row in csv_reader:
                     serial_id = int(row['serial_id'])
                     item_data = {
@@ -27,11 +27,14 @@ class Simulation:
                         'location': row[' location'].strip() 
                     }
                     self.input_items[serial_id] = item_data
+                    length += 1
+
+                self.event_log.add_entry(f"{length} Items Recieved")
 
         except FileNotFoundError:
             log_entry = f"Error: File '{filename}' not found."
             self.event_log.add_entry(log_entry)
-        print(self.input_items)
+        #print(self.input_items)
 
     def run(self):
         self.running = True
