@@ -43,8 +43,7 @@ class ControlPanel:
                 # Add your pause button logic here
 
             elif self.stop_button.collidepoint(mouse_pos):
-                self.simulation.running = False
-                self.event_log.add_entry(f"Simulation Stopped: Click Run to restart")
+                self.simulation.stop()
 
             elif self.show_logs_button.collidepoint(mouse_pos):
                 for log in self.event_log.all_logs:

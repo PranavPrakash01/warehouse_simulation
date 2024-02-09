@@ -42,6 +42,13 @@ class Simulation:
 
         self.read_and_convert_csv()
 
+    def stop(self):
+        self.input_items = [] 
+        self.running = False
+        self.inlets_active = False
+        self.conveyor_active = False
+        self.event_log.add_entry(f"Simulation Stopped/Completed: Click Run to restart")
+
     def pass_items_inlet(self, inlets):
         self.inlets_active = True
         # Check if there are items to distribute
@@ -82,6 +89,7 @@ class Simulation:
         log_entry = "All Items Transported to Big Sorting Area"
         if self.conveyor_active:
             self.conveyor_active = False
+            self.stop()
         else:
             self.event_log.add_entry(log_entry)
 
