@@ -45,9 +45,14 @@ class ControlPanel:
 
     def draw_control_panel(self):
         # Draw buttons with rounded corners
-        pygame.draw.rect(self.screen, (95, 95, 95), self.run_button, border_radius=self.button_radius)
-        pygame.draw.rect(self.screen, (95, 95, 95), self.pause_button, border_radius=self.button_radius)
-        pygame.draw.rect(self.screen, (95, 95, 95), self.stop_button, border_radius=self.button_radius)
+        pygame.draw.rect(self.screen, (50, 50, 50), self.run_button, border_radius=self.button_radius)
+        pygame.draw.rect(self.screen, (50, 50, 50), self.pause_button, border_radius=self.button_radius)
+        pygame.draw.rect(self.screen, (50, 50, 50), self.stop_button, border_radius=self.button_radius)
+
+        # Draw grey borders around the buttons
+        pygame.draw.rect(self.screen, (100, 100, 100), self.run_button, border_radius=self.button_radius, width=1)
+        pygame.draw.rect(self.screen, (100, 100, 100), self.pause_button, border_radius=self.button_radius, width=1)
+        pygame.draw.rect(self.screen, (100, 100, 100), self.stop_button, border_radius=self.button_radius, width=1)
 
         # Draw text on buttons
         self.draw_text("Run", self.run_button)
@@ -55,7 +60,8 @@ class ControlPanel:
         self.draw_text("Stop", self.stop_button)
 
         # Draw event log box
-        pygame.draw.rect(self.screen, (75, 75, 75), self.event_log_box, border_radius=4)
+        pygame.draw.rect(self.screen, (10, 10, 10), self.event_log_box, border_radius=4)
+        pygame.draw.rect(self.screen, (100, 100, 100), self.event_log_box, border_radius=4, width=1)
         self.draw_event_log()
 
     def draw_text(self, text, button_rect):
