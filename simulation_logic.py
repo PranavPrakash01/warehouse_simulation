@@ -34,10 +34,11 @@ class Simulation:
         print(self.input_items)
 
     def run(self):
+        self.running = True
         log_entry = "Running simulation..."
         self.event_log.add_entry(log_entry)
 
-        # Trigger the function to read and convert the CSV file
+
         self.read_and_convert_csv()
 
     def pass_items_inlet(self):
@@ -55,6 +56,9 @@ class Simulation:
             # Remove the processed item from the input_items dictionary
             del self.input_items[serial_id]
         else:
-            
             log_entry = "No items to distribute."
-            self.event_log.add_entry(log_entry)
+
+            if self.event_log.log_entries and self.event_log.log_entries[0] == log_entry:
+                pass
+            else:
+                self.event_log.add_entry(log_entry)
