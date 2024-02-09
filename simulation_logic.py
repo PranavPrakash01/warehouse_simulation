@@ -56,7 +56,7 @@ class Simulation:
             # Remove the processed item from the input_items dictionary
             del self.input_items[serial_id]
         else:
-            log_entry = "No items to distribute."
+            log_entry = "All Items Recieved"
 
             if self.event_log.log_entries and self.event_log.log_entries[0] == log_entry:
                 pass
