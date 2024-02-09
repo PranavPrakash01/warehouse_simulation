@@ -88,9 +88,8 @@ class Simulation:
         # If no conveyors have items, log appropriate message
         log_entry = "All Items Transported to Big Sorting Area"
         if self.conveyor_active:
+            self.event_log.add_entry(log_entry)
             self.conveyor_active = False
             self.stop()
-        else:
-            self.event_log.add_entry(log_entry)
 
         
