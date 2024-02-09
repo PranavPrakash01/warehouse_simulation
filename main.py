@@ -70,7 +70,7 @@ def main():
     warehouse_layout_data = warehouse_layout
 
     # Create an instance of the Simulation class
-    simulation = Simulation(inlets) 
+    simulation = Simulation() 
 
     dashboard = Dashboard(warehouse_layout_data, inlets, outlets, sorting_areas, storage_areas, conveyors, simulation)
 
@@ -88,6 +88,10 @@ def main():
     INLET_REC_EVENT = pygame.USEREVENT
     pygame.time.set_timer(INLET_REC_EVENT, 500)
 
+     # Set up a custom event to pass items to inlets
+    CONVEYOR_TO_BIG_SORTING_AREA = pygame.USEREVENT + 1
+    pygame.time.set_timer(CONVEYOR_TO_BIG_SORTING_AREA , 1000)
+
     clock = pygame.time.Clock()
     # Main simulation loop
     running = True
@@ -102,8 +106,13 @@ def main():
                 pygame.quit()
                 sys.exit()
             elif event.type == INLET_REC_EVENT:
+
                 if simulation.running:
-                    simulation.pass_items_inlet()
+                    simulation.pass_items_inlet(inlets)
+                    
+            elif event.type == CONVEYOR_TO_BIG_SORTING_AREA:
+                if simulation.conveyor_active:
+                    simulation.send_items_to_sorting_area(conveyors, big_sorting_area)
             
             dashboard.control_panel.handle_events(event)
 

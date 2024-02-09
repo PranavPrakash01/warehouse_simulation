@@ -5,11 +5,12 @@ import csv
 import random
 
 class Simulation:
-    def __init__(self, inlets):
-        self.inlets = inlets
+    def __init__(self):
         self.event_log = EventLog()
         self.input_items = [] 
         self.running = False
+        self.inlets_active = False
+        self.conveyor_active = False
 
     def read_and_convert_csv(self, filename='items_data.csv'):
         try:
@@ -41,11 +42,12 @@ class Simulation:
 
         self.read_and_convert_csv()
 
-    def pass_items_inlet(self):
+    def pass_items_inlet(self, inlets):
+        self.inlets_active = True
         # Check if there are items to distribute
         if self.input_items:
             # Choose a random inlet
-            random_inlet = random.choice(self.inlets)
+            random_inlet = random.choice(inlets)
 
             # Receive one item from the input_items list
             item = self.input_items.pop(0)
@@ -54,9 +56,33 @@ class Simulation:
             random_inlet.receive_item(item, self.event_log)
 
         else:
-            log_entry = "All Items Received"
-
-            if self.event_log.log_entries and self.event_log.log_entries[0] == log_entry:
-                pass
+            log_entry = "All Items Received at Inlet"
+            
+            if self.inlets_active:
+                self.inlets_active = False
+                self.conveyor_active = True
             else:
                 self.event_log.add_entry(log_entry)
+
+    def send_items_to_sorting_area(self, conveyors, big_sorting_area):
+        for conveyor in conveyors:
+            items_on_conveyor = conveyor.items_on_conveyor.copy()
+
+            if items_on_conveyor:
+                # Pass items from conveyor to big_sorting_area
+                big_sorting_area.receive_unsorted_items(items_on_conveyor, self.event_log, conveyor.name)
+                
+                # Clear items on the conveyor after passing to big_sorting_area
+                conveyor.items_on_conveyor.clear()
+
+                # Return after processing the first conveyor with items
+                return
+
+        # If no conveyors have items, log appropriate message
+        log_entry = "All Items Transported to Big Sorting Area"
+        if self.conveyor_active:
+            self.conveyor_active = False
+        else:
+            self.event_log.add_entry(log_entry)
+
+        

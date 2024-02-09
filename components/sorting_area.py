@@ -8,7 +8,13 @@ class SortingArea:
         self.name = name
         self.area_type = area_type
         self.row, self.column = start_location
-        self.sorted_items = []
+        self.unsorted_items = []
+        self.color_timer = 0
+        self.color_duration = 500
+
+        # Color variables
+        self.color_original = (126, 155, 222) 
+        self.color_transporting = (0, 136, 255)
 
         # Define attributes for big sorting area
         if self.area_type == "big":
@@ -26,13 +32,24 @@ class SortingArea:
     def draw_sorting_area(self, screen, cell_size, start_x, start_y):
         for cell in self.cells:
             row, col = cell
-            pygame.draw.rect(screen, (126, 155, 222) , (start_x + col * cell_size, start_y + row * cell_size, cell_size, cell_size))
+            color = self.color_transporting if self.color_timer != 0 else self.color_original
+            pygame.draw.rect(screen, color , (start_x + col * cell_size, start_y + row * cell_size, cell_size, cell_size))
+
+            # Check if the color change duration has passed
+            if pygame.time.get_ticks() > self.color_timer:
+                # Change color back to the original color
+                self.color_timer = 0
         
-    def sort_items(self, items):
-        # Implement sorting logic here based on criteria
-        # For example, sorting by location
-        self.sorted_items = sorted(items, key=lambda x: x.location)
-        print(f"Items sorted in Sorting Area {self.name}: {self.sorted_items}")
+    def receive_unsorted_items(self, items, event_log, conveyor_name):
+        for item in items:
+            self.unsorted_items.append(item)
+        
+        # Change color to grey temporarily
+        self.color_timer = pygame.time.get_ticks() + self.color_duration
+
+        item_info = f"[{self.name}]: Recieved {len(items)} Items from {conveyor_name}"
+        
+        event_log.add_entry(item_info)
 
     def get_name(self):
         return self.name
