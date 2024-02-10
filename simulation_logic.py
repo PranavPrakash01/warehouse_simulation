@@ -12,6 +12,7 @@ class Simulation:
         self.inlets_active = False
         self.conveyor_active = False
         self.big_sorting_active = False
+        self.big_storage_active = False
 
     def read_and_convert_csv(self, filename='items_data.csv'):
         try:
@@ -95,12 +96,36 @@ class Simulation:
             self.big_sorting_active = True
             #self.stop()
 
-    def big_sorting_area_sort(self,big_sorting_area):
+    def big_sorting_area_sort(self, big_sorting_area):
         is_done = big_sorting_area.sort_items()
         
         if is_done:
             self.big_sorting_active = False
-            self.stop()
+            self.big_storage_active = True
         else:
             big_sorting_area.log_status(self.event_log)
-        
+
+    def send_items_to_storage_area(self, sorting_area, storage_areas):
+        sorted_items = sorting_area.sorted_items.copy()
+
+        for location, items in sorted_items.items():
+            # Find the corresponding storage area for the location
+            storage_area = next((area for area in storage_areas if area.item_destination == location), None)
+
+            if storage_area:
+                # Store items in the storage area
+                for item in items:
+                    storage_area.store_item(item, self.event_log)
+
+                # Clear the sorted items from the sorting area
+                sorting_area.sorted_items.pop(location)
+
+                log_entry = f"{len(items)} items sent to {storage_area.get_name()} from Sorting Area"
+                self.event_log.add_entry(log_entry)
+
+                return 
+
+        # Check if all items are sorted and stored
+        if not sorting_area.sorted_items:
+            self.big_storage_active = False
+            self.stop()

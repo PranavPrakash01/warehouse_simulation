@@ -31,7 +31,7 @@ def get_tooltip_text(component):
     name_text = component.get_name()
 
     if isinstance(component, StorageArea):
-        storage_area_info = f"{name_text}   Item Location: {component.item_location}   Max Capacity: {component.max_capacity}   Current Items: {len(component.storage_list)}"
+        storage_area_info = f"{name_text}   Item Location: {component.item_destination}   Max Capacity: {component.max_capacity}   Current Items: {len(component.storage)}"
 
         # Split the storage_area_info into lines
         lines = storage_area_info.split("   ")

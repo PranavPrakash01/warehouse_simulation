@@ -42,8 +42,8 @@ def main():
     sorting_areas = [big_sorting_area]
 
     #create big storage areas
-    storage_area1 = StorageArea(name="StorageArea1", start_location=(4, 10), item_destination="A", area_type="big")
-    storage_area2 = StorageArea(name="StorageArea2", start_location=(4, 12), item_destination="B", area_type="big")
+    storage_area1 = StorageArea(name="StorageArea1", start_location=(4, 10), item_destination="mukkam", area_type="big")
+    storage_area2 = StorageArea(name="StorageArea2", start_location=(4, 12), item_destination="kattangal", area_type="big")
     storage_area3 = StorageArea(name="StorageArea3", start_location=(4, 14), item_destination="C", area_type="big")
     storage_area4 = StorageArea(name="StorageArea4", start_location=(4, 16), item_destination="D", area_type="big")
     storage_area5 = StorageArea(name="StorageArea5", start_location=(6, 10), item_destination="E", area_type="big")
@@ -51,7 +51,7 @@ def main():
     storage_area7 = StorageArea(name="StorageArea7", start_location=(6, 14), item_destination="G", area_type="big")
     storage_area8 = StorageArea(name="StorageArea8", start_location=(6, 16), item_destination="H", area_type="big")
 
-    storage_area9 = StorageArea(name="StorageArea9", start_location=(15, 10), item_destination="I", area_type="big")
+    storage_area9 = StorageArea(name="StorageArea9", start_location=(15, 10), item_destination="beach", area_type="big")
     storage_area10 = StorageArea(name="StorageArea10", start_location=(15, 12), item_destination="J", area_type="big")
     storage_area11 = StorageArea(name="StorageArea11", start_location=(15, 14), item_destination="K", area_type="big")
     storage_area12 = StorageArea(name="StorageArea12", start_location=(15, 16), item_destination="L", area_type="big")
@@ -95,7 +95,10 @@ def main():
     # Set up a custom event to pass items to Big Sorting Area
     BIG_SORTING_AREA_SORT = pygame.USEREVENT + 2
     pygame.time.set_timer(BIG_SORTING_AREA_SORT , 250)
-    clock = pygame.time.Clock()
+
+    # Set up a custom event to pass items to Big Sorting Area
+    BIG_SORTING_AREA_TO_STORAGE = pygame.USEREVENT + 3
+    pygame.time.set_timer(BIG_SORTING_AREA_TO_STORAGE , 1000)
 
     clock = pygame.time.Clock()
     # Main simulation loop
@@ -122,6 +125,10 @@ def main():
             elif event.type == BIG_SORTING_AREA_SORT:
                 if simulation.big_sorting_active:
                     simulation.big_sorting_area_sort(big_sorting_area)
+
+            elif event.type == BIG_SORTING_AREA_TO_STORAGE:
+                if simulation.big_storage_active:
+                    simulation.send_items_to_storage_area(big_sorting_area, storage_areas)
             
             dashboard.control_panel.handle_events(event)
 

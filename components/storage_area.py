@@ -8,11 +8,12 @@ class StorageArea:
     def __init__(self, name, start_location, item_destination="warehouse", area_type="small"):
         self.name = name
         self.area_type = area_type
-        self.item_location = item_destination
+        self.item_destination = item_destination
         self.row, self.column = start_location
         self.max_capacity = 10
-        self.color = (169, 169, 169)  # Grey color for storage area
-        self.storage_list = []
+        self.empty_color = (169, 169, 169)  # Grey color for storage area
+        self.non_empty_color = (50, 50, 50)
+        self.storage = []
 
         # Define attributes for big storage area
         if self.area_type == "big":
@@ -32,7 +33,11 @@ class StorageArea:
         # Draw the cells
         for cell in self.cells:
             row, col = cell
-            pygame.draw.rect(screen, self.color, (start_x + col * cell_size, start_y + row * cell_size, cell_size, cell_size))
+            if self.storage:
+                color = self.non_empty_color
+            else:
+                color = self.empty_color
+            pygame.draw.rect(screen, color, (start_x + col * cell_size, start_y + row * cell_size, cell_size, cell_size))
 
         # Draw the white border around the 2x2 square
         square_size = 2 * cell_size  # Size of the 2x2 square
@@ -53,13 +58,25 @@ class StorageArea:
 
         # Right border
         pygame.draw.rect(screen, (255, 255, 255), (border_start_x + square_size - border_thickness, border_start_y, border_thickness, square_size))
-
-    def store_item(self, item):
-        if len(self.storage_list) < self.max_capacity:
-            self.storage_list.append(item)
-            return True
-        else:
-            return False
         
     def get_name(self):
         return self.name
+    
+    def store_item(self, item, event_log):
+        # Check if the storage area has reached its maximum capacity
+        if len(self.storage) < self.max_capacity:
+            # Add the item to the storage list
+            self.storage.append(item)
+
+            # Log the item storage
+            log_entry = f"[{self.name}]: Stored Item - {item.info()}"
+            event_log.add_entry(log_entry)
+
+            return True  # Item successfully stored
+        else:
+            # Log that the storage area is full
+            log_entry = f"[{self.name}]: Storage Area Full - Unable to store Item - {item.info()}"
+            event_log.add_entry(log_entry)
+
+            return False  # Storage area full, unable to store item
+
