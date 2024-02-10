@@ -86,7 +86,7 @@ class SortingArea:
         else:
             # Clear the unsorted items after sorting
             self.unsorted_items.clear()
-            self.print_sorted_items()
+            #self.print_sorted_items()
             return True
 
     def print_sorted_items(self):
