@@ -11,6 +11,7 @@ class Simulation:
         self.running = False
         self.inlets_active = False
         self.conveyor_active = False
+        self.big_sorting_active = False
 
     def read_and_convert_csv(self, filename='items_data.csv'):
         try:
@@ -91,6 +92,15 @@ class Simulation:
         if self.conveyor_active:
             self.event_log.add_entry(log_entry)
             self.conveyor_active = False
+            self.big_sorting_active = True
             #self.stop()
 
+    def big_sorting_area_sort(self,big_sorting_area):
+        is_done = big_sorting_area.sort_items()
+        
+        if is_done:
+            self.big_sorting_active = False
+            self.stop()
+        else:
+            big_sorting_area.log_status(self.event_log)
         

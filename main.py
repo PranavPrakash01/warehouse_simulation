@@ -92,6 +92,11 @@ def main():
     CONVEYOR_TO_BIG_SORTING_AREA = pygame.USEREVENT + 1
     pygame.time.set_timer(CONVEYOR_TO_BIG_SORTING_AREA , 1000)
 
+    # Set up a custom event to pass items to Big Sorting Area
+    BIG_SORTING_AREA_SORT = pygame.USEREVENT + 2
+    pygame.time.set_timer(BIG_SORTING_AREA_SORT , 250)
+    clock = pygame.time.Clock()
+
     clock = pygame.time.Clock()
     # Main simulation loop
     running = True
@@ -113,6 +118,10 @@ def main():
             elif event.type == CONVEYOR_TO_BIG_SORTING_AREA:
                 if simulation.conveyor_active:
                     simulation.send_items_to_sorting_area(conveyors, big_sorting_area)
+
+            elif event.type == BIG_SORTING_AREA_SORT:
+                if simulation.big_sorting_active:
+                    simulation.big_sorting_area_sort(big_sorting_area)
             
             dashboard.control_panel.handle_events(event)
 
