@@ -42,6 +42,8 @@ class Simulation:
 
         self.read_and_convert_csv()
 
+        self.inlets_active = True
+
     def stop(self):
         self.input_items = [] 
         self.running = False
@@ -50,7 +52,7 @@ class Simulation:
         self.event_log.add_entry(f"Simulation Stopped/Completed: Click Run to restart")
 
     def pass_items_inlet(self, inlets):
-        self.inlets_active = True
+        
         # Check if there are items to distribute
         if self.input_items:
             # Choose a random inlet
@@ -68,7 +70,6 @@ class Simulation:
             if self.inlets_active:
                 self.inlets_active = False
                 self.conveyor_active = True
-            else:
                 self.event_log.add_entry(log_entry)
 
     def send_items_to_sorting_area(self, conveyors, big_sorting_area):
@@ -90,6 +91,6 @@ class Simulation:
         if self.conveyor_active:
             self.event_log.add_entry(log_entry)
             self.conveyor_active = False
-            self.stop()
+            #self.stop()
 
         
