@@ -16,7 +16,7 @@ class Dashboard:
         self.screen = pygame.display.set_mode(self.screen_size)
 
         # Set the window title and icon (if available)
-        pygame.display.set_caption("WareHouse Sim V.1.0")
+        pygame.display.set_caption("Digital WareHouse V.1.0")
 
         # Initialize main frame
         self.main_frame = pygame.Rect(0, 0, self.screen_size[0], self.screen_size[1])
