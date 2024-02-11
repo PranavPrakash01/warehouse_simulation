@@ -36,7 +36,7 @@ class ControlPanel:
         self.text_input_box = InputBox(self.event_log_box.right + 10, control_panel_frame.top + 10, 155, 32, placeholder="Enter Dispatch Loc")
 
         # Dispatch buttom
-        #self.show_logs_button = pygame.Rect(self.event_log_box.right  + 10, self.text_input_box.bottom + 10, 155, self.button_height + 5)
+        self.dispatch_button = pygame.Rect(self.event_log_box.right  + 10, self.text_input_box.rect.bottom + 10, 155, self.button_height + 5)
 
     def handle_events(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -56,6 +56,9 @@ class ControlPanel:
                 for log in self.event_log.all_logs:
                     print(log)
 
+            elif self.dispatch_button.collidepoint(mouse_pos):
+                print(self.text_input_box.get_text())
+
         # Handle events for the text input box
         self.text_input_box.handle_event(event)
 
@@ -65,18 +68,21 @@ class ControlPanel:
         pygame.draw.rect(self.screen, self.button_color, self.pause_button, border_radius=self.button_radius)
         pygame.draw.rect(self.screen, self.button_color, self.stop_button, border_radius=self.button_radius)
         pygame.draw.rect(self.screen, self.button_color, self.show_logs_button, border_radius=self.button_radius)
+        pygame.draw.rect(self.screen, self.button_color, self.dispatch_button, border_radius=self.button_radius)
 
         # Draw grey borders around the buttons
         pygame.draw.rect(self.screen, self.button_color_border, self.run_button, border_radius=self.button_radius, width=1)
         pygame.draw.rect(self.screen, self.button_color_border, self.pause_button, border_radius=self.button_radius, width=1)
         pygame.draw.rect(self.screen, self.button_color_border, self.stop_button, border_radius=self.button_radius, width=1)
         pygame.draw.rect(self.screen, self.button_color_border, self.show_logs_button, border_radius=self.button_radius, width=1)
+        pygame.draw.rect(self.screen, self.button_color_border, self.dispatch_button, border_radius=self.button_radius, width=1)
 
         # Draw text on buttons
         self.draw_text("Run", self.run_button)
         self.draw_text("Pause", self.pause_button)
         self.draw_text("Stop", self.stop_button)
         self.draw_text("Print Events", self.show_logs_button)
+        self.draw_text("Dispatch", self.dispatch_button)
 
         # Draw event log box
         pygame.draw.rect(self.screen, (25, 25, 25), self.event_log_box, border_radius=4)

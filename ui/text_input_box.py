@@ -30,14 +30,18 @@ class InputBox:
         if event.type == pg.KEYDOWN:
             if self.active:
                 if event.key == pg.K_RETURN:
-                    print(self.text)
-                    self.text = ''
-                    self.active = not self.active
+                    pass
                 elif event.key == pg.K_BACKSPACE:
                     self.text = self.text[:-1]
                 else:
                     self.text += event.unicode
                 self.txt_surface = FONT.render(self.text, True, self.color)
+
+    def get_text(self):
+        temp = self.text
+        self.text = ''
+        self.active = not self.active
+        return temp
 
     def update(self):
         width = max(200, self.txt_surface.get_width() + 10)
