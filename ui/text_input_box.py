@@ -41,7 +41,8 @@ class InputBox:
         temp = self.text
         self.text = ''
         self.active = not self.active
-        return temp
+        print(temp)
+        #return temp
 
     def update(self):
         width = max(200, self.txt_surface.get_width() + 10)

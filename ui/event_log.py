@@ -27,4 +27,8 @@ class EventLog:
             text_rect = text_surface.get_rect(topleft=(event_log_box.left + 10, event_log_box.top + 5 + i * 10 + i * 2))
             screen.blit(text_surface, text_rect)
 
+    def print_all_logs(self):
+        for log in self.all_logs:
+            print(log)
+
 
