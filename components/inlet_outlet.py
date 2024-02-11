@@ -48,13 +48,30 @@ class Outlet:
         self.name = name
         self.row = row
         self.column = column
+        self.received_items = []
+        self.color = (217, 122, 115)
+        self.color_timer = 0
+        self.color_duration = 250 
 
-    def dispatch_item(self, item):
-        print(f"Item dispatched from Outlet {self.name}: {item}")
+    def dispatch_item(self, item, event_log):
+
+        self.received_items.append(item)
+
+        # Change color to green temporarily
+        self.color = (255, 0, 0)
+        self.color_timer = pygame.time.get_ticks() + self.color_duration
+
+        item_info = f"[{self.name}]: Item Dispatched - {item.info()}"
+        event_log.add_entry(item_info)
 
     def draw_outlet(self, screen, cell_size, start_x, start_y):
         # Draw a red square for the inlet
         pygame.draw.rect(screen, (217, 122, 115), (start_x + self.column * cell_size, start_y + self.row * cell_size, cell_size, cell_size))
+
+        # Check if the color change duration has passed
+        if pygame.time.get_ticks() > self.color_timer:
+            # Change color back to the original color
+            self.color = (217, 122, 115)
 
     def get_name(self):
         return self.name
