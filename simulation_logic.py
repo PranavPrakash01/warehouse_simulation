@@ -5,8 +5,11 @@ import csv
 import random
 
 class Simulation:
-    def __init__(self,storage_areas):
+    def __init__(self, storage_areas, outlets):
+
         self.storage_areas = storage_areas
+        self.outlets = outlets
+
         self.event_log = EventLog()
         self.input_items = [] 
         self.running = False
@@ -139,12 +142,15 @@ class Simulation:
         storage_area = next((area for area in self.storage_areas if area.item_destination == location), None)
 
         if storage_area:
-            log_entry = f"Found Storage Area: {storage_area.name}"
+            log_entry = f"Found Storage Area: {storage_area.name} With Location: {location}"
             self.event_log.add_entry(log_entry)
             if storage_area.storage:
+
                 log_entry = f"[{storage_area.name}] Total Items: {len(storage_area.storage)}"
                 self.event_log.add_entry(log_entry)
-                #   self.outlets_active = False
+
+                storage_area.storage.clear()
+
             else:
                 log_entry = f"[{storage_area.name}] No Items To Dispatch"
                 self.event_log.add_entry(log_entry)
