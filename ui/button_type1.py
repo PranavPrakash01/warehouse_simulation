@@ -2,32 +2,35 @@
 import pygame
 
 class ButtonType1:
-    def __init__(self, screen, text, rect, callback=None):
+    def __init__(self, screen, text, rect, callback=None, callback_args=None):
         self.screen = screen
         self.text = text
         self.rect = rect
         self.callback = callback
+        self.callback_args = callback_args
         self.button_color = (50, 50, 50)
         self.original_color_border = (100, 100, 100)
         self.hover_color_border = (255, 255, 255)
-        self.click_color = (75, 75, 75)  # New color for click
+        self.click_color = (150, 150, 150)
         self.button_radius = 5
         self.hovered = False
-        self.clicked = False  # Track click state
+        self.clicked = False
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
             if self.rect.collidepoint(mouse_pos) and self.callback:
                 self.clicked = True
-                self.callback()
+                if self.callback_args:
+                    self.callback(self.callback_args())
+                else:
+                    self.callback()
         elif event.type == pygame.MOUSEBUTTONUP:
             self.clicked = False
         elif event.type == pygame.MOUSEMOTION:
             self.hovered = self.rect.collidepoint(event.pos)
 
     def draw(self):
-        # Change border color and button color based on click and hover states
         if self.clicked:
             border_color = self.original_color_border
             button_color = self.click_color
@@ -38,7 +41,6 @@ class ButtonType1:
             border_color = self.original_color_border
             button_color = self.button_color
 
-        # Draw the button
         pygame.draw.rect(self.screen, button_color, self.rect, border_radius=self.button_radius)
         pygame.draw.rect(self.screen, border_color, self.rect, border_radius=self.button_radius, width=1)
         self.draw_text()

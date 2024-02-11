@@ -62,6 +62,11 @@ class StorageArea:
     def get_name(self):
         return self.name
     
+    def get_items(self):
+        temp = self.storage
+        self.storage.clear()
+        return temp
+    
     def store_item(self, item, event_log):
         # Check if the storage area has reached its maximum capacity
         if len(self.storage) < self.max_capacity:

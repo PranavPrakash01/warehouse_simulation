@@ -5,7 +5,8 @@ import csv
 import random
 
 class Simulation:
-    def __init__(self):
+    def __init__(self,storage_areas):
+        self.storage_areas = storage_areas
         self.event_log = EventLog()
         self.input_items = [] 
         self.running = False
@@ -13,6 +14,8 @@ class Simulation:
         self.conveyor_active = False
         self.big_sorting_active = False
         self.big_storage_active = False
+        self.outlets_active = False
+        self.dispatch_items = []
 
     def read_and_convert_csv(self, filename='items_data.csv'):
         try:
@@ -52,6 +55,7 @@ class Simulation:
         self.inlets_active = False
         self.conveyor_active = False
         self.event_log.add_entry(f"Simulation Stopped/Completed: Click Run to restart")
+
 
     def pass_items_inlet(self, inlets):
         
@@ -129,3 +133,22 @@ class Simulation:
         if not sorting_area.sorted_items:
             self.big_storage_active = False
             self.stop()
+
+    def get_items_in_storage(self, location):
+        # Find the corresponding storage area for the location
+        storage_area = next((area for area in self.storage_areas if area.item_destination == location), None)
+
+        if storage_area:
+            log_entry = f"Found Storage Area: {storage_area.name}"
+            self.event_log.add_entry(log_entry)
+            if storage_area.storage:
+                log_entry = f"[{storage_area.name}] Total Items: {len(storage_area.storage)}"
+                self.event_log.add_entry(log_entry)
+                #   self.outlets_active = False
+            else:
+                log_entry = f"[{storage_area.name}] No Items To Dispatch"
+                self.event_log.add_entry(log_entry)
+
+        else:
+            log_entry = "No matching storage area found."
+            self.event_log.add_entry(log_entry)

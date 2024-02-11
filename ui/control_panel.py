@@ -27,7 +27,7 @@ class ControlPanel:
         self.text_input_box = InputBox(self.event_log_box.right + 10, control_panel_frame.top + 10, 155, 32, placeholder="Enter Dispatch Loc")
 
         # Dispatch button
-        self.dispatch_button = ButtonType1(self.screen, "Dispatch", pygame.Rect(self.event_log_box.right + 10, self.text_input_box.rect.bottom + 10, 155, self.button_height + 5), self.text_input_box.get_text)
+        self.dispatch_button = ButtonType1(self.screen, "Dispatch", pygame.Rect(self.event_log_box.right + 10, self.text_input_box.rect.bottom + 10, 155, self.button_height + 5), self.simulation.get_items_in_storage, self.text_input_box.get_text)
 
     def handle_events(self, event):
         # Handle events for buttons
