@@ -44,7 +44,7 @@ def main():
     #create big storage areas
     storage_area1 = StorageArea(name="StorageArea1", start_location=(4, 10), item_destination="mukkam", area_type="big")
     storage_area2 = StorageArea(name="StorageArea2", start_location=(4, 12), item_destination="kattangal", area_type="big")
-    storage_area3 = StorageArea(name="StorageArea3", start_location=(4, 14), item_destination="C", area_type="big")
+    storage_area3 = StorageArea(name="StorageArea3", start_location=(4, 14), item_destination="palayam", area_type="big")
     storage_area4 = StorageArea(name="StorageArea4", start_location=(4, 16), item_destination="D", area_type="big")
     storage_area5 = StorageArea(name="StorageArea5", start_location=(6, 10), item_destination="E", area_type="big")
     storage_area6 = StorageArea(name="StorageArea6", start_location=(6, 12), item_destination="F", area_type="big")

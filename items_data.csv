@@ -1,11 +1,12 @@
 serial_id, name, weight, location
-1, Fridge, 40000, mukkam
-2, Grinder, 10000, kattangal
-3, Dumbbell, 7000, mukkam
-4, Dell laptop, 3000, beach
-5, Table, 15000, beach
-6, Shelf, 5000, mukkam
-7, Matters, 10000, kattangal
-8, Drill Set, 4000, mukkam
-9, Chair, 3000, mukkam
-10, Flour, 10000, beach
+1, Fridge,40000, mukkam
+2, Grinder,10000, kattangal
+3, Dumbbell,7000, mukkam
+4, Dell laptop,3000, beach
+5, Table,15000, beach
+6, Shelf,5000, mukkam
+7, Matters,10000, kattangal
+8, Drill Set,4000, mukkam
+9, Chair,3000, mukkam
+10, Flour,10000, beach
+11,Rice,7000,palayam
