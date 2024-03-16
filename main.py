@@ -70,7 +70,7 @@ def main():
     warehouse_layout_data = warehouse_layout
 
     # Create an instance of the Simulation class
-    simulation = Simulation(storage_areas, outlets) 
+    simulation = Simulation(inlets, outlets, sorting_areas, storage_areas, conveyors) 
 
     dashboard = Dashboard(warehouse_layout_data, inlets, outlets, sorting_areas, storage_areas, conveyors, simulation)
 
@@ -116,19 +116,19 @@ def main():
             elif event.type == INLET_REC_EVENT:
 
                 if simulation.running:
-                    simulation.pass_items_inlet(inlets)
+                    simulation.pass_items_inlet()
                     
             elif event.type == CONVEYOR_TO_BIG_SORTING_AREA:
                 if simulation.conveyor_active:
-                    simulation.send_items_to_sorting_area(conveyors, big_sorting_area)
+                    simulation.send_items_to_sorting_area()
 
             elif event.type == BIG_SORTING_AREA_SORT:
                 if simulation.big_sorting_active:
-                    simulation.big_sorting_area_sort(big_sorting_area)
+                    simulation.big_sorting_area_sort()
 
             elif event.type == BIG_SORTING_AREA_TO_STORAGE:
                 if simulation.big_storage_active:
-                    simulation.send_items_to_storage_area(big_sorting_area, storage_areas)
+                    simulation.send_items_to_storage_area()
             
             dashboard.control_panel.handle_events(event)
 

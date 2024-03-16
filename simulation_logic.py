@@ -5,10 +5,13 @@ import csv
 import random
 
 class Simulation:
-    def __init__(self, storage_areas, outlets):
+    def __init__(self, inlets, outlets, sorting_areas, storage_areas, conveyors):
 
-        self.storage_areas = storage_areas
+        self.inlets = inlets
         self.outlets = outlets
+        self.sorting_areas = sorting_areas
+        self.storage_areas = storage_areas
+        self.conveyors = conveyors
 
         self.event_log = EventLog()
         self.input_items = [] 
@@ -60,12 +63,12 @@ class Simulation:
         self.event_log.add_entry(f"Simulation Stopped/Completed: Click Run to restart")
 
 
-    def pass_items_inlet(self, inlets):
+    def pass_items_inlet(self):
         
         # Check if there are items to distribute
         if self.input_items:
             # Choose a random inlet
-            random_inlet = random.choice(inlets)
+            random_inlet = random.choice(self.inlets)
 
             # Receive one item from the input_items list
             item = self.input_items.pop(0)
@@ -81,13 +84,13 @@ class Simulation:
                 self.conveyor_active = True
                 self.event_log.add_entry(log_entry)
 
-    def send_items_to_sorting_area(self, conveyors, big_sorting_area):
-        for conveyor in conveyors:
+    def send_items_to_sorting_area(self):
+        for conveyor in self.conveyors:
             items_on_conveyor = conveyor.items_on_conveyor.copy()
 
             if items_on_conveyor:
                 # Pass items from conveyor to big_sorting_area
-                big_sorting_area.receive_unsorted_items(items_on_conveyor, self.event_log, conveyor.name)
+                self.sorting_areas[0].receive_unsorted_items(items_on_conveyor, self.event_log, conveyor.name)
                 
                 # Clear items on the conveyor after passing to big_sorting_area
                 conveyor.items_on_conveyor.clear()
@@ -103,21 +106,21 @@ class Simulation:
             self.big_sorting_active = True
             #self.stop()
 
-    def big_sorting_area_sort(self, big_sorting_area):
-        is_done = big_sorting_area.sort_items()
+    def big_sorting_area_sort(self):
+        is_done = self.sorting_areas[0].sort_items()
         
         if is_done:
             self.big_sorting_active = False
             self.big_storage_active = True
         else:
-            big_sorting_area.log_status(self.event_log)
+            self.sorting_areas[0].log_status(self.event_log)
 
-    def send_items_to_storage_area(self, sorting_area, storage_areas):
-        sorted_items = sorting_area.sorted_items.copy()
+    def send_items_to_storage_area(self):
+        sorted_items = self.sorting_areas[0].sorted_items.copy()
 
         for location, items in sorted_items.items():
             # Find the corresponding storage area for the location
-            storage_area = next((area for area in storage_areas if area.item_destination == location), None)
+            storage_area = next((area for area in self.storage_areas if area.item_destination == location), None)
 
             if storage_area:
                 # Store items in the storage area
@@ -125,7 +128,7 @@ class Simulation:
                     storage_area.store_item(item, self.event_log)
 
                 # Clear the sorted items from the sorting area
-                sorting_area.sorted_items.pop(location)
+                self.sorting_areas[0].sorted_items.pop(location)
 
                 log_entry = f"{len(items)} items sent to {storage_area.get_name()} from Sorting Area"
                 self.event_log.add_entry(log_entry)
@@ -133,7 +136,7 @@ class Simulation:
                 return 
 
         # Check if all items are sorted and stored
-        if not sorting_area.sorted_items:
+        if not self.sorting_areas[0].sorted_items:
             self.big_storage_active = False
             self.stop()
 
