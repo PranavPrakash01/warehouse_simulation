@@ -31,4 +31,8 @@ class EventLog:
         for log in self.all_logs:
             print(log)
 
+    def clear_log_box(self):
+        self.add_entry("--------LogBox Cleared--------")
+        self.log_entries.clear()
+
 

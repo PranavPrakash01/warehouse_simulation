@@ -55,12 +55,30 @@ class Simulation:
 
         self.inlets_active = True
 
+    def pause(self):
+        self.input_items = [] 
+        self.running = False
+        self.inlets_active = False
+        self.conveyor_active = False
+        self.event_log.add_entry(f"Simulation Paused: Click Again to Continue")
+
+    def reset(self):
+        self.input_items = [] 
+        self.running = False
+        self.inlets_active = False
+        self.conveyor_active = False
+        self.event_log.clear_log_box()
+        self.event_log.all_logs.clear()
+        for storage_area in self.storage_areas:
+            storage_area.storage.clear()
+        self.event_log.add_entry(f"Simulation Reset: Click Run to restart")
+
     def stop(self):
         self.input_items = [] 
         self.running = False
         self.inlets_active = False
         self.conveyor_active = False
-        self.event_log.add_entry(f"Simulation Stopped/Completed: Click Run to restart")
+        self.event_log.add_entry(f"Simulation Completed: Click Run Restart")
 
 
     def pass_items_inlet(self):

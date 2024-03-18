@@ -16,12 +16,13 @@ class ControlPanel:
 
         # Create instances of ButtonType1 for different buttons
         self.run_button = ButtonType1(self.screen, "Run", pygame.Rect(control_panel_frame.left + 10, control_panel_frame.top + 10, self.button_width, self.button_height), self.simulation.run)
-        self.pause_button = ButtonType1(self.screen, "Pause", pygame.Rect(self.run_button.rect.right + 10, self.run_button.rect.top, self.button_width, self.button_height))
-        self.stop_button = ButtonType1(self.screen, "Stop", pygame.Rect(self.pause_button.rect.right + 10, self.run_button.rect.top, self.button_width, self.button_height), self.simulation.stop)
-        self.show_logs_button = ButtonType1(self.screen, "Print Events", pygame.Rect(control_panel_frame.left + 10, self.run_button.rect.bottom + 10, self.stop_button.rect.right - self.run_button.rect.left, self.button_height + 5), self.event_log.print_all_logs)
+        self.pause_button = ButtonType1(self.screen, "Pause", pygame.Rect(self.run_button.rect.right + 10, self.run_button.rect.top, self.button_width, self.button_height), self.simulation.pause)
+        self.reset_button = ButtonType1(self.screen, "Reset", pygame.Rect(self.pause_button.rect.right + 10, self.run_button.rect.top, self.button_width, self.button_height), self.simulation.reset)
+        self.show_logs_button = ButtonType1(self.screen, "Print Events", pygame.Rect(control_panel_frame.left + 10, self.run_button.rect.bottom + 10, self.reset_button.rect.right - self.run_button.rect.left, self.button_height + 5), self.event_log.print_all_logs)
+        self.clear_logs_button = ButtonType1(self.screen, "Clear Logs", pygame.Rect(control_panel_frame.left + 10, self.show_logs_button.rect.bottom + 10, self.show_logs_button.rect.width, self.button_height + 5), self.event_log.clear_log_box)
 
         # Decrease the width of the event log box and add padding to the right
-        self.event_log_box = pygame.Rect(self.stop_button.rect.right + 10, control_panel_frame.top + 10, control_panel_frame.width // 2 + 75, 120)
+        self.event_log_box = pygame.Rect(self.reset_button.rect.right + 10, control_panel_frame.top + 10, control_panel_frame.width // 2 + 75, 120)
 
         # Create an instance of InputBox for the text input
         self.text_input_box = InputBox(self.event_log_box.right + 10, control_panel_frame.top + 10, 155, 32, placeholder="Enter Dispatch Loc")
@@ -33,9 +34,10 @@ class ControlPanel:
         # Handle events for buttons
         self.run_button.handle_event(event)
         self.pause_button.handle_event(event)
-        self.stop_button.handle_event(event)
+        self.reset_button.handle_event(event)
         self.show_logs_button.handle_event(event)
         self.dispatch_button.handle_event(event)
+        self.clear_logs_button.handle_event(event)
 
         # Handle events for the text input box
         self.text_input_box.handle_event(event)
@@ -44,9 +46,10 @@ class ControlPanel:
         # Draw buttons
         self.run_button.draw()
         self.pause_button.draw()
-        self.stop_button.draw()
+        self.reset_button.draw()
         self.show_logs_button.draw()
         self.dispatch_button.draw()
+        self.clear_logs_button.draw()
 
         # Draw event log box
         pygame.draw.rect(self.screen, (25, 25, 25), self.event_log_box, border_radius=4)
