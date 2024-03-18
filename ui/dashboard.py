@@ -12,7 +12,7 @@ class Dashboard:
         self.cell_size = 20
         self.padding = 20
         self.sidebar_width = 220
-        self.control_panel_height = 100
+        self.control_panel_height = 140
         self.display_width = 1000
         self.display_height = 565
 

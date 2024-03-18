@@ -5,7 +5,7 @@ class EventLog:
     def __init__(self):
         self.log_entries = []
         self.all_logs = []
-        self.max_entries = 6  # Maximum number of entries to display in the event_log_box
+        self.max_entries = 9  # Maximum number of entries to display in the event_log_box
         self.log_font = pygame.font.Font("assets/RobotoMono-Light.ttf", 10)
 
     def add_entry(self, entry):

@@ -21,7 +21,7 @@ class ControlPanel:
         self.show_logs_button = ButtonType1(self.screen, "Print Events", pygame.Rect(control_panel_frame.left + 10, self.run_button.rect.bottom + 10, self.stop_button.rect.right - self.run_button.rect.left, self.button_height + 5), self.event_log.print_all_logs)
 
         # Decrease the width of the event log box and add padding to the right
-        self.event_log_box = pygame.Rect(self.stop_button.rect.right + 10, control_panel_frame.top + 10, control_panel_frame.width // 2 + 75, 80)
+        self.event_log_box = pygame.Rect(self.stop_button.rect.right + 10, control_panel_frame.top + 10, control_panel_frame.width // 2 + 75, 120)
 
         # Create an instance of InputBox for the text input
         self.text_input_box = InputBox(self.event_log_box.right + 10, control_panel_frame.top + 10, 155, 32, placeholder="Enter Dispatch Loc")
